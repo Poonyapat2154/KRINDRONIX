@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>KAT Drone Information System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="assets/krin-logo.png" alt="KRIN GROUP" class="logo">
+      <div><strong>KRIN GROUP</strong><span>KAT Drone Information System</span></div>
+    </div>
+    <nav>
+      <button class="nav active" data-view="dashboard">▦ Dashboard</button>
+      <button class="nav" data-view="products">◈ Products</button>
+      <button class="nav" data-view="projects">▤ Projects</button>
+      <button class="nav" data-view="customers">◎ Customers</button>
+      <button class="nav" data-view="documents">▧ Documents</button>
+      <button class="nav" data-view="maintenance">⚙ Maintenance</button>
+      <button class="nav" data-view="reports">⌁ Reports</button>
+      <button class="nav" data-view="settings">◌ Settings</button>
+    </nav>
+    <div class="user-box"><div class="avatar">PP</div><div><b>Admin User</b><small>admin@kringroup.com</small></div></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button id="menuBtn" class="menu">☰</button>
+      <input id="globalSearch" placeholder="Search products, projects, customers...">
+      <button class="small-btn">TH / EN</button>
+      <button class="small-btn">🔔</button>
+    </header>
+
+    <section class="view active" id="dashboard">
+      <div class="page-head"><div><p class="eyebrow">Overview</p><h1>Dashboard</h1><p>Monitor UAV products, projects, customers, documents, and maintenance.</p></div><button class="primary" data-open="projectModal">+ Add Project</button></div>
+      <div class="filters"><select id="orgFilter"><option value="">All organizations</option><option>Army</option><option>Navy</option><option>Air Force</option><option>Police</option><option>Private</option></select><select id="statusFilter"><option value="">All status</option><option>Active</option><option>Planning</option><option>Completed</option><option>Delayed</option></select><select id="priorityFilter"><option value="">All priority</option><option>High</option><option>Medium</option><option>Low</option></select><button class="outline" id="clearDashboard">Clear filters</button></div>
+      <div class="stats"><article><span>Total Projects</span><strong id="totalProjects">4</strong><small>Current portfolio</small></article><article><span>Total Project Value</span><strong>฿98.6M</strong><small>Across active projects</small></article><article><span>UAV Products</span><strong>14</strong><small>Fixed-wing and VTOL</small></article><article><span>Upcoming Deadlines</span><strong>4</strong><small>Next 30 days</small></article></div>
+      <div class="dashboard-grid">
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Portfolio</p><h2>Priority Projects</h2></div><button class="link-btn" data-jump="projects">View all</button></div><div id="priorityProjects"></div></article>
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Schedule</p><h2 id="calendarTitle">July 2026</h2></div><div class="cal-actions"><button id="prevMonth">‹</button><button id="todayMonth">Today</button><button id="nextMonth">›</button></div></div><div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar" id="calendar"></div><div class="holiday-note" id="holidayNote"></div></article>
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Live feed</p><h2>Recent Activity</h2></div></div><ul class="activity"><li><b>KAT Drone Integration</b><span>Progress updated to 65%</span></li><li><b>Naval ISR Platform</b><span>Contract uploaded</span></li><li><b>Royal Thai Air Force</b><span>Customer profile added</span></li></ul></article>
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">Catalogue</p><h2>Product Categories</h2></div></div><div class="category-grid"><button data-jump="products" data-category="UAV"><b>UAV</b><span>14 systems</span></button><button data-jump="products" data-category="GCS"><b>Ground Control</b><span>4 systems</span></button><button data-jump="products" data-category="Payload"><b>Payloads</b><span>9 systems</span></button><button data-jump="products" data-category="Data Link"><b>Data Links</b><span>6 systems</span></button></div></article>
+      </div>
+    </section>
+
+    <section class="view" id="products">
+      <div class="page-head"><div><p class="eyebrow">Catalogue</p><h1>Products</h1><p>UAVs, ground control stations, payloads, cameras, and communication systems.</p></div><button class="primary" id="addProduct">+ Add Product</button></div>
+      <div class="filters"><input id="productSearch" placeholder="Search product..."><select id="productCategory"><option value="">All categories</option><option>UAV</option><option>GCS</option><option>Payload</option><option>Data Link</option></select><select id="makerFilter"><option value="">All manufacturers</option><option>Airbus</option><option>Skyeton</option><option>SwissDrones</option><option>General Atomics</option><option>Anduril</option></select><button class="outline" id="clearProducts">Clear</button></div>
+      <div class="card-grid" id="productGrid"></div>
+    </section>
+
+    <section class="view" id="projects">
+      <div class="page-head"><div><p class="eyebrow">Management</p><h1>Projects</h1><p>Track contract number, value, organization, timeline, and progress.</p></div><button class="primary" data-open="projectModal">+ Add Project</button></div>
+      <div class="table-card"><div class="table-tools"><input id="projectSearch" placeholder="Search project or เลขที่สัญญา"><button class="outline" id="exportCsv">Export CSV</button></div><div class="table-scroll"><table><thead><tr><th>Project</th><th>เลขที่สัญญา</th><th>Value</th><th>Organization</th><th>Progress</th><th>Priority</th><th>Status</th></tr></thead><tbody id="projectTable"></tbody></table></div></div>
+    </section>
+
+    <section class="view" id="customers"><div class="page-head"><div><p class="eyebrow">CRM</p><h1>Customers</h1><p>Manage organizations, stakeholders, and contact information.</p></div><button class="primary">+ Add Customer</button></div><div class="card-grid" id="customerGrid"></div></section>
+    <section class="view" id="documents"><div class="page-head"><div><p class="eyebrow">Knowledge Base</p><h1>Documents</h1><p>Contracts, datasheets, technical files, and project attachments.</p></div><button class="primary">Upload Document</button></div><div class="doc-grid"><article><b>MQ-9B Technical Overview</b><span>PDF • Updated today</span><button>Open</button></article><article><b>Project Cost Summary</b><span>XLS • Updated yesterday</span><button>Open</button></article><article><b>KAT Integration Requirements</b><span>DOC • Updated 2 days ago</span><button>Open</button></article></div></section>
+    <section class="view" id="maintenance"><div class="page-head"><div><p class="eyebrow">Support</p><h1>Maintenance</h1><p>Track inspections, service schedules, and aircraft availability.</p></div><button class="primary">+ Add Service Record</button></div><div class="stats"><article><span>Aircraft Available</span><strong>9</strong><small>Out of 12 assigned</small></article><article><span>Due for Inspection</span><strong>3</strong><small>Next 30 days</small></article><article><span>Open Work Orders</span><strong>5</strong><small>2 high priority</small></article><article><span>Compliance</span><strong>96%</strong><small>Current quarter</small></article></div></section>
+    <section class="view" id="reports"><div class="page-head"><div><p class="eyebrow">Analytics</p><h1>Reports</h1><p>Portfolio, product, and maintenance summaries.</p></div><button class="primary">Generate Report</button></div><div class="doc-grid"><article><b>Project Portfolio Summary</b><span>Value, status, progress, and organization.</span><button>Generate</button></article><article><b>Product Comparison</b><span>Compare UAV specifications and capability.</span><button>Generate</button></article><article><b>Maintenance Readiness</b><span>Availability, inspections, and work orders.</span><button>Generate</button></article></div></section>
+    <section class="view" id="settings"><div class="page-head"><div><p class="eyebrow">System</p><h1>Settings</h1><p>Language, alerts, and dashboard preferences.</p></div></div><div class="settings"><label>Language<select><option>English</option><option>ไทย</option></select></label><label>Default organization<select><option>All organizations</option><option>Army</option><option>Navy</option><option>Air Force</option></select></label><label class="switch">Deadline alerts<input type="checkbox" checked></label><label class="switch">Maintenance notifications<input type="checkbox" checked></label><button class="primary">Save Settings</button></div></section>
+  </main>
+</div>
+
+<div class="modal" id="projectModal"><div class="modal-card"><button class="close" data-close>×</button><h2>Add Project</h2><form id="projectForm"><div class="form-grid"><label>Project Name<input name="name" required></label><label>เลขที่สัญญา<input name="contract" required></label><label>Project Value (THB)<input type="number" name="value" min="0" required></label><label>Organization<select name="organization"><option>Army</option><option>Navy</option><option>Air Force</option><option>Police</option><option>Private</option></select></label><label>Priority<select name="priority"><option>High</option><option>Medium</option><option>Low</option></select></label><label>Status<select name="status"><option>Planning</option><option>Active</option><option>Completed</option><option>Delayed</option></select></label><label>Progress (%)<input type="number" min="0" max="100" value="0" name="progress"></label><label>End Date<input type="date" name="endDate"></label></div><button class="primary" type="submit">Save Project</button></form></div></div>
+<script src="app.js"></script>
+</body>
+</html>
